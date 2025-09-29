@@ -25,8 +25,8 @@ Widget buildTextField({
       Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: Colors.grey[50],
-          border: Border.all(color: Colors.grey[200]!, width: 1),
+          color: Colors.grey[40],
+          border: Border.all(color: Colors.grey[300]!, width: 1),
         ),
         child: TextFormField(
           obscureText: isPassword && !isPasswordVisible,
@@ -35,15 +35,15 @@ Widget buildTextField({
           style: TextStyle(fontSize: 18, color: Colors.grey[800]),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: TextStyle(color: Colors.grey[400], fontSize: 18),
-            prefixIcon: Icon(icon, color: Colors.grey[400], size: 20),
+            hintStyle: TextStyle(color: Colors.grey[600], fontSize: 18),
+            prefixIcon: Icon(icon, color: Colors.grey[600], size: 20),
             suffixIcon: isPassword
                 ? IconButton(
                     icon: Icon(
                       isPasswordVisible
                           ? Icons.visibility_outlined
                           : Icons.visibility_off_outlined,
-                      color: Colors.grey[400],
+                      color: Colors.grey[600],
                       size: 20,
                     ),
                     onPressed: onSuffixIconPressed,

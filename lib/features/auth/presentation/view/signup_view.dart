@@ -4,15 +4,15 @@ import 'package:aura_interiors/features/auth/presentation/widgets/custom_textfie
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class SignupView extends StatefulWidget {
+  const SignupView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignupView> createState() => _SignupViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
-  bool rememberMe = false;
+class _SignupViewState extends State<SignupView> {
+  bool agreeToPolicy = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +24,13 @@ class _LoginViewState extends State<LoginView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // Logo
               Image.asset('assets/images/logo.png', height: 60),
               const SizedBox(height: 42),
+
+              // Title & Subtitle
               Text(
-                'Welcome Back',
+                'Create Account',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -39,7 +42,7 @@ class _LoginViewState extends State<LoginView> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Sign in to continue your design journey',
+                'Sign up to start your design journey',
                 style: TextStyle(
                   fontSize: 16,
                   color: const Color(0xFF6B7280),
@@ -48,6 +51,8 @@ class _LoginViewState extends State<LoginView> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 40),
+
+              // Email & Password
               buildTextField(
                 label: 'Email',
                 hint: 'Enter your email address',
@@ -56,62 +61,70 @@ class _LoginViewState extends State<LoginView> {
               const SizedBox(height: 16),
               buildTextField(
                 label: 'Password',
-                hint: 'Enter your password',
+                hint: 'Create a password',
                 icon: Icons.lock_outline,
                 isPassword: true,
                 onSuffixIconPressed: () {},
               ),
               const SizedBox(height: 16),
+
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      Transform.scale(
-                        scale: 1.12,
-                        child: Checkbox(
-                          value: rememberMe,
-                          onChanged: (value) {
-                            setState(() => rememberMe = value ?? false);
-                          },
-                          activeColor: const Color(0xFFDC2626),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                        ),
+                  Transform.scale(
+                    scale: 1.12,
+                    child: Checkbox(
+                      value: agreeToPolicy,
+                      onChanged: (value) {
+                        setState(() => agreeToPolicy = value ?? false);
+                      },
+                      activeColor: const Color(0xFFDC2626),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
                       ),
-                      Text(
-                        'Remember me',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(0xFF374151),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      // Handle forgot password
-                    },
-                    child: Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: const Color(0xFFDC2626),
+                  Expanded(
+                    child: Text.rich(
+                      TextSpan(
+                        text: 'I agree to the ',
+                        style: TextStyle(
+                          fontSize: 15,
+                          color: const Color(0xFF374151),
+                          height: 1.4,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Privacy Policy',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xFFDC2626),
+                            ),
+                          ),
+                          const TextSpan(text: ' & '),
+                          TextSpan(
+                            text: 'Terms of Service',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xFFDC2626),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 24),
+
+              // Sign Up Button
               SizedBox(
                 height: 52,
                 child: ElevatedButton(
-                  onPressed: () {
-                    // Handle login
-                  },
+                  onPressed: agreeToPolicy
+                      ? () {
+                          // Handle signup
+                        }
+                      : null,
                   style:
                       ElevatedButton.styleFrom(
                         padding: EdgeInsets.zero,
@@ -127,20 +140,25 @@ class _LoginViewState extends State<LoginView> {
                       ),
                   child: Ink(
                     decoration: BoxDecoration(
-                      gradient: const LinearGradient(
-                        colors: [Color(0xFFE53E3E), Color(0xFFB91C1C)],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
+                      gradient: agreeToPolicy
+                          ? const LinearGradient(
+                              colors: [Color(0xFFE53E3E), Color(0xFFB91C1C)],
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                            )
+                          : null,
+                      color: agreeToPolicy ? null : Colors.grey.shade300,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Center(
                       child: Text(
-                        'Sign In',
+                        'Sign Up',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                          color: agreeToPolicy
+                              ? Colors.white
+                              : Colors.grey.shade600,
                           letterSpacing: 0.5,
                         ),
                       ),
@@ -149,6 +167,8 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               const SizedBox(height: 24),
+
+              // Divider
               Row(
                 children: [
                   Expanded(
@@ -157,7 +177,7 @@ class _LoginViewState extends State<LoginView> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Text(
-                      'or continue with',
+                      'or sign up with',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -171,12 +191,14 @@ class _LoginViewState extends State<LoginView> {
                 ],
               ),
               const SizedBox(height: 24),
+
+              // Social Signup Buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   buildCircularSocialButton(
                     onTap: () {
-                      // Handle Google login
+                      // Handle Google signup
                     },
                     icon: Image.asset(
                       'assets/images/google_logo.png',
@@ -186,7 +208,7 @@ class _LoginViewState extends State<LoginView> {
                   const SizedBox(width: 20),
                   buildCircularSocialButton(
                     onTap: () {
-                      // Handle Apple login
+                      // Handle Apple signup
                     },
                     icon: const Icon(
                       Icons.apple,
@@ -197,11 +219,13 @@ class _LoginViewState extends State<LoginView> {
                 ],
               ),
               const SizedBox(height: 32),
+
+              // Redirect to Login
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Don't have an account?",
+                    "Already have an account?",
                     style: TextStyle(
                       fontSize: 16,
                       color: const Color(0xFF6B7280),
@@ -210,10 +234,10 @@ class _LoginViewState extends State<LoginView> {
                   const SizedBox(width: 6),
                   GestureDetector(
                     onTap: () {
-                      context.go(Routes.signup);
+                      context.go(Routes.login);
                     },
                     child: Text(
-                      'Sign Up',
+                      'Sign In',
                       style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600,
