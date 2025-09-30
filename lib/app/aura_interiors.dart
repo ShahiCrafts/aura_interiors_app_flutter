@@ -1,5 +1,5 @@
 import 'package:aura_interiors/app/config/app_router.dart';
-import 'package:aura_interiors/app/constant/theme.dart';
+import 'package:aura_interiors/app/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class AuraInteriors extends StatelessWidget {
