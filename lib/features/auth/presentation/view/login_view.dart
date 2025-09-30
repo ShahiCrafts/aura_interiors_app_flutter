@@ -51,12 +51,14 @@ class _LoginViewState extends State<LoginView> {
               buildTextField(
                 label: 'Email',
                 hint: 'Enter your email address',
+                isPasswordVisible: false,
                 icon: Icons.email_outlined,
               ),
               const SizedBox(height: 16),
               buildTextField(
                 label: 'Password',
                 hint: 'Enter your password',
+                isPasswordVisible: false,
                 icon: Icons.lock_outline,
                 isPassword: true,
                 onSuffixIconPressed: () {},

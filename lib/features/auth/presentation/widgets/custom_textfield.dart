@@ -4,8 +4,9 @@ Widget buildTextField({
   required String label,
   required String hint,
   required IconData icon,
+  TextEditingController? controller,
   bool isPassword = false,
-  bool isPasswordVisible = false,
+  required bool isPasswordVisible,
   TextInputType? keyboardType,
   String? Function(String?)? validator,
   VoidCallback? onSuffixIconPressed,
@@ -29,6 +30,7 @@ Widget buildTextField({
           border: Border.all(color: Colors.grey[300]!, width: 1),
         ),
         child: TextFormField(
+          controller: controller,
           obscureText: isPassword && !isPasswordVisible,
           keyboardType: keyboardType,
           validator: validator,

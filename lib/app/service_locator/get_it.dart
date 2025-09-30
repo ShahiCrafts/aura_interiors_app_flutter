@@ -6,6 +6,7 @@ import 'package:aura_interiors/features/auth/data/data_sources/remote/auth_remot
 import 'package:aura_interiors/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:aura_interiors/features/auth/domain/repositories/auth_repository.dart';
 import 'package:aura_interiors/features/auth/domain/usecases/auth_register_usecase.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -37,4 +38,10 @@ void _initAuth() {
   );
 
   // PRESENTATION LAYER (CUBIT/BLOC) DEPENDENCY INJECTION
+  getIt.registerFactory<SignupBloc>(
+    () => SignupBloc(
+      authRegisterUsecase: getIt<AuthRegisterUsecase>(),
+      authService: getIt<AuthService>(),
+    ),
+  );
 }

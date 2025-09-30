@@ -1,0 +1,16 @@
+EQUATABLE:
+
+- Equatable allows value-based equality instead of default reference-based equality.
+
+- Example:
+    ```
+    final state1 = SignupState(email: 'test@example.com', password: '1234');
+    final state2 = SignupState(email: 'test@example.com', password: '1234');
+
+    print(state1 == state2); // true
+    ```
+
+- Explanation:
+    - Without Equatable, Dart compares objects by reference, so two instances are always different.
+    - By extending Equatable and overriding `props`, equality is based on the values of the fields in `props`.
+    - This is very useful in Bloc, so the framework can detect state changes correctly.

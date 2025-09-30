@@ -27,9 +27,15 @@ class AuthResponseDto extends Equatable {
   }
 
   AuthEntity toEntity() {
-    return AuthEntity(id: id, email: email, role: role, isVerified: isVerified);
+    return AuthEntity(
+      id: id,
+      email: email,
+      role: role,
+      isVerified: isVerified,
+      token: token,
+    );
   }
 
   @override
-  List<Object?> get props => [id, email, role, isVerified];
+  List<Object?> get props => [id, email, role, isVerified, token];
 }
