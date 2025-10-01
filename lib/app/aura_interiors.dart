@@ -10,7 +10,7 @@ class AuraInteriors extends StatelessWidget {
     return MaterialApp(
       title: 'Aura Interiors',
       debugShowCheckedModeBanner: false,
-      initialRoute: '/',
+      initialRoute: '/view',
       theme: lightTheme,
       darkTheme: darkTheme,
       onGenerateRoute: AppRouter.generateRoute,

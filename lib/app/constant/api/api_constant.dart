@@ -1,7 +1,7 @@
 class ApiConstant {
   ApiConstant._(); // private constructor
 
-  static const String serverUri = 'http://192.168.1.7:8080';
+  static const String serverUri = 'http://192.168.1.9:8080';
 
   static const String baseUrl = '$serverUri/api';
 

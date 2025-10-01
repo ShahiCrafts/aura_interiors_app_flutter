@@ -21,6 +21,7 @@ class SignupView extends StatelessWidget {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(state.message!)));
+          Navigator.pushNamed(context, '/otp/view');
         } else if (state.status == FormStatus.failure) {
           ScaffoldMessenger.of(
             context,
@@ -149,7 +150,9 @@ class SignupView extends StatelessWidget {
                     SizedBox(
                       height: 52,
                       child: ElevatedButton(
-                        onPressed: state.agreeToPolicy
+                        onPressed:
+                            state.agreeToPolicy &&
+                                state.status != FormStatus.submitting
                             ? () {
                                 context.read<SignupBloc>().add(
                                   SignupSubmitted(
@@ -190,21 +193,33 @@ class SignupView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: Center(
-                            child: Text(
-                              'Sign Up',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: state.agreeToPolicy
-                                    ? Colors.white
-                                    : Colors.grey.shade600,
-                                letterSpacing: 0.5,
-                              ),
-                            ),
+                            child: state.status == FormStatus.submitting
+                                ? const SizedBox(
+                                    height: 24,
+                                    width: 24,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2.8,
+                                      valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.white,
+                                      ),
+                                    ),
+                                  )
+                                : Text(
+                                    'Sign Up',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                      color: state.agreeToPolicy
+                                          ? Colors.white
+                                          : Colors.grey.shade600,
+                                      letterSpacing: 0.5,
+                                    ),
+                                  ),
                           ),
                         ),
                       ),
                     ),
+
                     const SizedBox(height: 24),
 
                     // Divider
@@ -278,7 +293,9 @@ class SignupView extends StatelessWidget {
                         ),
                         const SizedBox(width: 6),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, '/login/view');
+                          },
                           child: Text(
                             'Sign In',
                             style: TextStyle(

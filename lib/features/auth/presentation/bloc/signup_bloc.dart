@@ -47,6 +47,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
     emit(state.copyWith(status: FormStatus.submitting, message: ''));
 
+    await Future.delayed(Duration(seconds: 2));
+
     final params = RegisterParams(
       email: event.email.trim(),
       password: event.password.trim(),
