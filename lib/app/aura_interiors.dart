@@ -3,18 +3,17 @@ import 'package:aura_interiors/app/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class AuraInteriors extends StatelessWidget {
-  AuraInteriors({super.key});
-
-  late final AppRouter _appRouter = AppRouter(isLoggedIn: true);
+  const AuraInteriors({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
+    return MaterialApp(
       title: 'Aura Interiors',
       debugShowCheckedModeBanner: false,
+      initialRoute: '/',
       theme: lightTheme,
       darkTheme: darkTheme,
-      routerConfig: _appRouter.router,
+      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }

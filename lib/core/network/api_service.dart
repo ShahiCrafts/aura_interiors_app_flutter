@@ -1,5 +1,5 @@
 import 'package:aura_interiors/app/constant/api/api_constant.dart';
-import 'package:aura_interiors/app/service_locator/get_it.dart';
+import 'package:aura_interiors/app/get_it/service_locator.dart';
 import 'package:aura_interiors/core/network/auth_interceptor.dart';
 import 'package:aura_interiors/core/network/auth_service.dart';
 import 'package:aura_interiors/core/network/dio_error_interceptor.dart';
@@ -17,7 +17,7 @@ class ApiService {
       ..options.connectTimeout = ApiConstant.connectionTimeoutDuration
       ..options.receiveTimeout = ApiConstant.recieveTimeoutDuration
       ..options.headers = {'Accept': 'application/json'}
-      ..interceptors.add(AuthInterceptor(authService: getIt<AuthService>()))
+      ..interceptors.add(AuthInterceptor(authService: serviceLocator<AuthService>()))
       ..interceptors.add(DioErrorInterceptor())
       ..interceptors.add(
         PrettyDioLogger(request: true, requestBody: true, requestHeader: true),

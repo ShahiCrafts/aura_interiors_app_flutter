@@ -5,6 +5,13 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(Duration(seconds: 2));
+      if (context.mounted) {
+        Navigator.pushNamed(context, '/login');
+      }
+    });
+
     return Scaffold(
       body: Center(
         child: Text(

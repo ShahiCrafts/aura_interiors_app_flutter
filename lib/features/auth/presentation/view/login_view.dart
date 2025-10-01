@@ -1,8 +1,6 @@
-import 'package:aura_interiors/app/constant/routes.dart';
 import 'package:aura_interiors/features/auth/presentation/widgets/circular_social_button.dart';
 import 'package:aura_interiors/features/auth/presentation/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -212,7 +210,7 @@ class _LoginViewState extends State<LoginView> {
                   const SizedBox(width: 6),
                   GestureDetector(
                     onTap: () {
-                      context.go(Routes.signup);
+                      Navigator.pushNamed(context, '/signup');
                     },
                     child: Text(
                       'Sign Up',

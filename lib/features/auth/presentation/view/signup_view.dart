@@ -1,4 +1,3 @@
-import 'package:aura_interiors/app/constant/routes.dart';
 import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc.dart';
 import 'package:aura_interiors/features/auth/presentation/bloc/signup_event.dart';
 import 'package:aura_interiors/features/auth/presentation/bloc/signup_state.dart';
@@ -7,7 +6,6 @@ import 'package:aura_interiors/features/auth/presentation/widgets/circular_socia
 import 'package:aura_interiors/features/auth/presentation/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class SignupView extends StatelessWidget {
   SignupView({super.key});
@@ -280,9 +278,7 @@ class SignupView extends StatelessWidget {
                         ),
                         const SizedBox(width: 6),
                         GestureDetector(
-                          onTap: () {
-                            context.go(Routes.login);
-                          },
+                          onTap: () {},
                           child: Text(
                             'Sign In',
                             style: TextStyle(

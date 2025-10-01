@@ -8,7 +8,9 @@ class InternetCheckerImpl implements InternetChecker {
   @override
   Future<bool> isConnected() async {
     final connectivityResult = await Connectivity().checkConnectivity();
-    if (connectivityResult.any((result) => result != ConnectivityResult.none)) {
+    final hasNetwork = !connectivityResult.contains(ConnectivityResult.none);
+
+    if (!hasNetwork) {
       return false;
     }
 

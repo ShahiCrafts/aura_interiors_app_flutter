@@ -1,5 +1,5 @@
 import 'package:aura_interiors/app/aura_interiors.dart';
-import 'package:aura_interiors/app/service_locator/get_it.dart';
+import 'package:aura_interiors/app/service_locator/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

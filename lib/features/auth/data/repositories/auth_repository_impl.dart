@@ -30,10 +30,10 @@ class AuthRepositoryImpl implements IAuthRepository {
     required String password,
   }) async {
     try {
-      // final isOnline = await _internetChecker.isConnected();
-      // if (!isOnline) {
-      //   return Left(NetworkFailure(errorMessage: 'No internet connection'));
-      // }
+      final isOnline = await _internetChecker.isConnected();
+      if (!isOnline) {
+        return Left(NetworkFailure(errorMessage: 'No internet connection'));
+      }
       // Prepare DTO
       final requestDto = AuthRequestDto(email: email, password: password);
       // Call remote datasource

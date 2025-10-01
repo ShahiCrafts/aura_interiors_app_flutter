@@ -10,38 +10,41 @@ import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc.dart'
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
-final getIt = GetIt.instance;
+final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
-  getIt.registerLazySingleton<InternetChecker>(() => InternetCheckerImpl());
-  getIt.registerLazySingleton<ApiService>(() => ApiService(Dio()));
-  getIt.registerLazySingleton<AuthService>(() => AuthService());
+  serviceLocator.registerLazySingleton<InternetChecker>(
+    () => InternetCheckerImpl(),
+  );
+  serviceLocator.registerLazySingleton<ApiService>(() => ApiService(Dio()));
+  serviceLocator.registerLazySingleton<AuthService>(() => AuthService());
 
   _initAuth();
 }
 
 void _initAuth() {
   // DATA LAYER DEPENDENCY INJECTION
-  getIt.registerLazySingleton<AuthRemoteDatasource>(
-    () => AuthRemoteDatasource(apiService: getIt<ApiService>()),
+  serviceLocator.registerLazySingleton<AuthRemoteDatasource>(
+    () => AuthRemoteDatasource(apiService: serviceLocator<ApiService>()),
   );
-  getIt.registerLazySingleton<IAuthRepository>(
+  serviceLocator.registerLazySingleton<IAuthRepository>(
     () => AuthRepositoryImpl(
-      remoteDataSource: getIt<AuthRemoteDatasource>(),
-      internetChecker: getIt<InternetChecker>(),
+      remoteDataSource: serviceLocator<AuthRemoteDatasource>(),
+      internetChecker: serviceLocator<InternetChecker>(),
     ),
   );
 
   // DOMAIN LAYER DEPENDENCY INJECTION
-  getIt.registerLazySingleton<AuthRegisterUsecase>(
-    () => AuthRegisterUsecase(authRepository: getIt<IAuthRepository>()),
+  serviceLocator.registerFactory<AuthRegisterUsecase>(
+    () =>
+        AuthRegisterUsecase(authRepository: serviceLocator<IAuthRepository>()),
   );
 
   // PRESENTATION LAYER (CUBIT/BLOC) DEPENDENCY INJECTION
-  getIt.registerFactory<SignupBloc>(
+  serviceLocator.registerFactory<SignupBloc>(
     () => SignupBloc(
-      authRegisterUsecase: getIt<AuthRegisterUsecase>(),
-      authService: getIt<AuthService>(),
+      serviceLocator<AuthRegisterUsecase>(),
+      authService: serviceLocator<AuthService>(),
     ),
   );
 }

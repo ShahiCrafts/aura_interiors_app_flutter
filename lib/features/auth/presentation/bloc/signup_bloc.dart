@@ -6,15 +6,12 @@ import 'package:aura_interiors/features/auth/presentation/utils/form_status_enum
 import 'package:bloc/bloc.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  final AuthRegisterUsecase _authRegisterUsecase;
+  final AuthRegisterUsecase authRegisterUsecase;
   final AuthService _authService;
 
-  SignupBloc({
-    required AuthRegisterUsecase authRegisterUsecase,
-    required AuthService authService,
-  }) : _authRegisterUsecase = authRegisterUsecase,
-       _authService = authService,
-       super(const SignupState()) {
+  SignupBloc(this.authRegisterUsecase, {required AuthService authService})
+    : _authService = authService,
+      super(const SignupState()) {
     on<PasswordVisibilityToggled>(_onPasswordVisibilityToggled);
     on<PrivacyPolicyToggled>(_onPrivacyPolicyToggled);
     on<SignupSubmitted>(_onSignupSubmitted);
@@ -55,7 +52,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       password: event.password.trim(),
     );
 
-    final result = await _authRegisterUsecase(params);
+    final result = await authRegisterUsecase(params);
 
     result.fold(
       (failure) {
