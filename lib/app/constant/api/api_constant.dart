@@ -9,4 +9,5 @@ class ApiConstant {
   static const recieveTimeoutDuration = Duration(seconds: 1000);
 
   static const String register = '$baseUrl/auth/register';
+  static const String login = '$baseUrl/auth/login';
 }

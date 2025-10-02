@@ -20,8 +20,27 @@ class AuthRepositoryImpl implements IAuthRepository {
   Future<Either<Failure, ({AuthEntity auth, String token})>> login({
     required String email,
     required String password,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    try {
+      final isOnline = await _internetChecker.isConnected();
+      if (!isOnline) {
+        return Left(NetworkFailure(errorMessage: 'No internet connection'));
+      }
+      final requestDto = AuthRequestDto(email: email, password: password);
+      final responseDto = await _remoteDataSource.register(requestDto);
+
+      final entity = AuthEntity(
+        id: responseDto.id,
+        email: responseDto.email,
+        role: responseDto.role,
+        isVerified: responseDto.isVerified,
+        token: responseDto.token,
+      );
+
+      return Right((auth: entity, token: responseDto.token ?? ''));
+    } catch (error) {
+      return Left(ServerFailure(errorMessage: error.toString()));
+    }
   }
 
   @override
@@ -34,9 +53,7 @@ class AuthRepositoryImpl implements IAuthRepository {
       if (!isOnline) {
         return Left(NetworkFailure(errorMessage: 'No internet connection'));
       }
-      // Prepare DTO
       final requestDto = AuthRequestDto(email: email, password: password);
-      // Call remote datasource
       final responseDto = await _remoteDataSource.register(requestDto);
 
       final entity = AuthEntity(

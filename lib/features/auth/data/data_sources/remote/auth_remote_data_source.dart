@@ -11,10 +11,25 @@ class AuthRemoteDatasource implements IAuthDataSource {
   AuthRemoteDatasource({required ApiService apiService})
     : _apiService = apiService;
 
-  // @override
-  // Future<AuthResponseDto> login(AuthRequestDto requestDto) async {
+  @override
+  Future<AuthResponseDto> login(AuthRequestDto requestDto) async {
+    try {
+      final response = await _apiService.dio.post(
+        ApiConstant.login,
+        data: requestDto.toJson(),
+      );
 
-  // }
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        return AuthResponseDto.fromJSON(response.data);
+      } else {
+        throw Exception('Login failed: ${response.statusMessage}');
+      }
+    } on DioException catch (error) {
+      throw Exception('Login failed: ${error.message}');
+    } catch (error) {
+      throw Exception('Login failed: $error');
+    }
+  }
 
   @override
   Future<AuthResponseDto> register(AuthRequestDto requestDto) async {
