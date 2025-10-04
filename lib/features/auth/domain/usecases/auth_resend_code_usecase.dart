@@ -5,30 +5,27 @@ import 'package:aura_interiors/features/auth/domain/repositories/auth_repository
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-class RegisterParams extends Equatable {
+class ResendCodeParams extends Equatable {
   final String email;
-  final String password;
 
-  const RegisterParams({required this.email, required this.password});
-  const RegisterParams.initial() : email = '', password = '';
+  const ResendCodeParams({required this.email});
+  const ResendCodeParams.initital() : email = '';
 
   @override
-  List<Object?> get props => [email, password];
+  List<Object?> get props => [email];
 }
 
-class AuthRegisterUsecase
-    implements UseCaseWithParams<AuthResponseEntity, RegisterParams> {
+class AuthResendCodeUsecase
+    implements UseCaseWithParams<AuthResponseEntity, ResendCodeParams> {
   final IAuthRepository _authRepository;
 
-  AuthRegisterUsecase({required IAuthRepository authRepository})
+  const AuthResendCodeUsecase({required IAuthRepository authRepository})
     : _authRepository = authRepository;
+
   @override
   Future<Either<Failure, AuthResponseEntity>> call(
-    RegisterParams params,
+    ResendCodeParams params,
   ) async {
-    return await _authRepository.register(
-      email: params.email,
-      password: params.password,
-    );
+    return await _authRepository.resendVerificationCode(email: params.email);
   }
 }
