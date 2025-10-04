@@ -1,4 +1,6 @@
 import 'package:aura_interiors/features/auth/domain/entities/auth_entity.dart';
+import 'package:aura_interiors/features/auth/domain/entities/auth_response_entity.dart';
+import 'package:aura_interiors/features/auth/domain/entities/token_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class AuthResponseDto extends Equatable {
@@ -6,36 +8,47 @@ class AuthResponseDto extends Equatable {
   final String email;
   final String role;
   final bool isVerified;
-  final String? token;
+  final TokenEntity? tokens;
+  final String? message;
 
   const AuthResponseDto({
     required this.id,
     required this.email,
     required this.role,
     required this.isVerified,
-    this.token,
+    this.tokens,
+    this.message,
   });
 
   factory AuthResponseDto.fromJSON(Map<String, dynamic> json) {
     return AuthResponseDto(
-      id: json['_id'],
-      email: json['email'],
-      role: json['role'],
-      isVerified: json['isVerified'],
-      token: json['token'],
+      id: json['user']?['id'] ?? '',
+      email: json['user']?['email'] ?? '',
+      role: json['user']?['role'] ?? '',
+      isVerified: json['user']?['isVerified'] ?? false,
+      tokens: json['tokens'] != null
+          ? TokenEntity(
+              accessToken: json['tokens']['accessToken'],
+              refreshToken: json['tokens']['refreshToken'],
+            )
+          : null,
+      message: json['message'],
     );
   }
 
-  AuthEntity toEntity() {
-    return AuthEntity(
-      id: id,
-      email: email,
-      role: role,
-      isVerified: isVerified,
-      token: token,
+  AuthResponseEntity toEntity() {
+    return AuthResponseEntity(
+      message: message,
+      user: AuthEntity(
+        id: id,
+        email: email,
+        role: role,
+        isVerified: isVerified,
+      ),
+      tokens: tokens,
     );
   }
 
   @override
-  List<Object?> get props => [id, email, role, isVerified, token];
+  List<Object?> get props => [id, email, role, isVerified, tokens];
 }

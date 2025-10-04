@@ -1,3 +1,4 @@
+import 'package:aura_interiors/features/auth/domain/entities/token_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class AuthEntity extends Equatable {
@@ -5,7 +6,7 @@ class AuthEntity extends Equatable {
   final String email;
   final String role;
   final bool isVerified;
-  final String? token;
+  final TokenEntity? token;
 
   const AuthEntity({
     required this.id,

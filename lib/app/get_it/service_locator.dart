@@ -43,7 +43,7 @@ void _initAuth() {
   // PRESENTATION LAYER (CUBIT/BLOC) DEPENDENCY INJECTION
   serviceLocator.registerFactory<SignupBloc>(
     () => SignupBloc(
-      serviceLocator<AuthRegisterUsecase>(),
+      authRegisterUsecase: serviceLocator<AuthRegisterUsecase>(),
       authService: serviceLocator<AuthService>(),
     ),
   );
