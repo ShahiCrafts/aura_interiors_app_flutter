@@ -1,4 +1,3 @@
-import 'package:aura_interiors/core/network/auth_service.dart';
 import 'package:aura_interiors/features/auth/domain/usecases/auth_register_usecase.dart';
 import 'package:aura_interiors/features/auth/presentation/bloc/signup_event.dart';
 import 'package:aura_interiors/features/auth/presentation/bloc/signup_state.dart';
@@ -7,14 +6,10 @@ import 'package:bloc/bloc.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   final AuthRegisterUsecase _authRegisterUsecase;
-  final AuthService _authService;
 
-  SignupBloc({
-    required AuthRegisterUsecase authRegisterUsecase,
-    required AuthService authService,
-  }) : _authRegisterUsecase = authRegisterUsecase,
-       _authService = authService,
-       super(const SignupState()) {
+  SignupBloc({required AuthRegisterUsecase authRegisterUsecase})
+    : _authRegisterUsecase = authRegisterUsecase,
+      super(const SignupState()) {
     on<PasswordVisibilityToggled>(_onPasswordVisibilityToggled);
     on<PrivacyPolicyToggled>(_onPrivacyPolicyToggled);
     on<SignupSubmitted>(_onSignupSubmitted);
@@ -69,14 +64,15 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         );
       },
       (authResponseEntity) async {
-        final token = authResponseEntity.user!.token;
         final message =
             authResponseEntity.message ?? 'Account created successfully!';
-
-        if (token != null) {
-          await _authService.saveTokens(token);
-        }
-        emit(state.copyWith(status: FormStatus.success, message: message));
+        emit(
+          state.copyWith(
+            email: event.email,
+            status: FormStatus.success,
+            message: message,
+          ),
+        );
       },
     );
   }

@@ -1,3 +1,5 @@
+import 'package:aura_interiors/app/get_it/service_locator.dart';
+import 'package:aura_interiors/core/network/auth_service.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatefulWidget {
@@ -12,6 +14,10 @@ class _SplashViewState extends State<SplashView>
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
+
+  static const _splashDuration = Duration(seconds: 3);
+
+  final AuthService _authService = serviceLocator<AuthService>();
 
   @override
   void initState() {
@@ -41,13 +47,17 @@ class _SplashViewState extends State<SplashView>
     _controller.forward();
 
     // Navigate after delay
-    _navigateToLogin();
+    _checkAuthStatusAndNavigate();
   }
 
-  Future<void> _navigateToLogin() async {
-    await Future.delayed(const Duration(seconds: 4));
+  Future<void> _checkAuthStatusAndNavigate() async {
+    await Future.delayed(_splashDuration);
+
+    final bool isLoggedIn = await _authService.isLoggedIn();
+
     if (mounted) {
-      Navigator.pushReplacementNamed(context, '/login/view');
+      final String nextRoute = isLoggedIn ? '/home/view' : '/login/view';
+      Navigator.pushReplacementNamed(context, nextRoute);
     }
   }
 
