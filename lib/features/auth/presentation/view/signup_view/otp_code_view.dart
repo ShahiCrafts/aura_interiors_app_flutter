@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:aura_interiors/features/auth/presentation/bloc/otp_code_bloc.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/otp_code_event.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/otp_code_state.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/otp_bloc/otp_code_bloc.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/otp_bloc/otp_code_event.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/otp_bloc/otp_code_state.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc/signup_bloc.dart';
 import 'package:aura_interiors/features/auth/presentation/utils/form_status_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

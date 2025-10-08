@@ -1,6 +1,6 @@
 import 'package:aura_interiors/features/auth/domain/usecases/auth_register_usecase.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/signup_event.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/signup_state.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc/signup_event.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc/signup_state.dart';
 import 'package:aura_interiors/features/auth/presentation/utils/form_status_enum.dart';
 import 'package:bloc/bloc.dart';
 
@@ -45,7 +45,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
     emit(state.copyWith(status: FormStatus.submitting, message: ''));
 
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     final params = RegisterParams(
       email: event.email.trim(),

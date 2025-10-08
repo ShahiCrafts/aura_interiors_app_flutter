@@ -1,6 +1,7 @@
 import 'package:aura_interiors/app/get_it/service_locator.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/otp_code_bloc.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/otp_bloc/otp_code_bloc.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc/signup_bloc.dart';
 import 'package:aura_interiors/features/auth/presentation/view/login_view/login_view.dart';
 import 'package:aura_interiors/features/auth/presentation/view/signup_view/otp_code_view.dart';
 import 'package:aura_interiors/features/auth/presentation/view/signup_view/signup_view.dart';
@@ -15,7 +16,12 @@ class AppRouter {
       case '/':
         return MaterialPageRoute(builder: (_) => SplashView());
       case '/login':
-        return MaterialPageRoute(builder: (_) => LoginView());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => serviceLocator<LoginBloc>(),
+            child: LoginView(),
+          ),
+        );
       case '/signup':
         return MaterialPageRoute(
           builder: (_) => BlocProvider(

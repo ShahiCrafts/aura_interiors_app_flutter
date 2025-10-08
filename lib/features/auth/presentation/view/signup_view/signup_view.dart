@@ -1,6 +1,6 @@
-import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/signup_event.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/signup_state.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc/signup_bloc.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc/signup_event.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc/signup_state.dart';
 import 'package:aura_interiors/features/auth/presentation/utils/form_status_enum.dart';
 import 'package:aura_interiors/features/auth/presentation/widgets/circular_social_button.dart';
 import 'package:aura_interiors/features/auth/presentation/widgets/custom_textfield.dart';

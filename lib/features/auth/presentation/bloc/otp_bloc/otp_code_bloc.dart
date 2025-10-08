@@ -2,8 +2,8 @@ import 'package:aura_interiors/core/network/auth_service.dart';
 import 'package:aura_interiors/features/auth/domain/entities/token_entity.dart';
 import 'package:aura_interiors/features/auth/domain/usecases/auth_resend_code_usecase.dart';
 import 'package:aura_interiors/features/auth/domain/usecases/auth_verify_usecase.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/otp_code_event.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/otp_code_state.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/otp_bloc/otp_code_event.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/otp_bloc/otp_code_state.dart';
 import 'package:aura_interiors/features/auth/presentation/utils/form_status_enum.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

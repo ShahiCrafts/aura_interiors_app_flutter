@@ -5,11 +5,13 @@ import 'package:aura_interiors/core/utils/internet_checker.dart';
 import 'package:aura_interiors/features/auth/data/data_sources/remote/auth_remote_data_source.dart';
 import 'package:aura_interiors/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:aura_interiors/features/auth/domain/repositories/auth_repository.dart';
+import 'package:aura_interiors/features/auth/domain/usecases/auth_login_usecase.dart';
 import 'package:aura_interiors/features/auth/domain/usecases/auth_register_usecase.dart';
 import 'package:aura_interiors/features/auth/domain/usecases/auth_resend_code_usecase.dart';
 import 'package:aura_interiors/features/auth/domain/usecases/auth_verify_usecase.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/otp_code_bloc.dart';
-import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/otp_bloc/otp_code_bloc.dart';
+import 'package:aura_interiors/features/auth/presentation/bloc/signup_bloc/signup_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
@@ -42,6 +44,9 @@ void _initAuth() {
     () =>
         AuthRegisterUsecase(authRepository: serviceLocator<IAuthRepository>()),
   );
+  serviceLocator.registerFactory<AuthLoginUsecase>(
+    () => AuthLoginUsecase(authRepository: serviceLocator<IAuthRepository>()),
+  );
   serviceLocator.registerFactory(
     () => AuthVerifyUsecase(authRepository: serviceLocator<IAuthRepository>()),
   );
@@ -55,6 +60,12 @@ void _initAuth() {
   serviceLocator.registerLazySingleton<SignupBloc>(
     () =>
         SignupBloc(authRegisterUsecase: serviceLocator<AuthRegisterUsecase>()),
+  );
+  serviceLocator.registerFactory<LoginBloc>(
+    () => LoginBloc(
+      authService: serviceLocator<AuthService>(),
+      authLoginUsecase: serviceLocator<AuthLoginUsecase>(),
+    ),
   );
   serviceLocator.registerFactory(
     () => OtpCodeBloc(
