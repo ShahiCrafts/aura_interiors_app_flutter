@@ -163,7 +163,7 @@ class _OtpCodeViewState extends State<OtpCodeView> {
     return BlocListener<OtpCodeBloc, OtpCodeState>(
       listener: (context, state) {
         if (state.status == FormStatus.success) {
-          Navigator.pushReplacementNamed(context, '/home/view');
+          Navigator.pushReplacementNamed(context, '/home');
         }
       },
       child: Scaffold(

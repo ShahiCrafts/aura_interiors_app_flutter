@@ -12,18 +12,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/view':
+      case '/':
         return MaterialPageRoute(builder: (_) => SplashView());
-      case '/login/view':
+      case '/login':
         return MaterialPageRoute(builder: (_) => LoginView());
-      case '/signup/view':
+      case '/signup':
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => serviceLocator<SignupBloc>(),
             child: SignupView(),
           ),
         );
-      case '/otp/view':
+      case '/otp':
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
@@ -33,7 +33,7 @@ class AppRouter {
             child: const OtpCodeView(),
           ),
         );
-      case '/home/view':
+      case '/home':
         return MaterialPageRoute(builder: (_) => HomeView());
       default:
         return MaterialPageRoute(

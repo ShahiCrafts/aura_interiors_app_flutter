@@ -56,7 +56,7 @@ class _SplashViewState extends State<SplashView>
     final bool isLoggedIn = await _authService.isLoggedIn();
 
     if (mounted) {
-      final String nextRoute = isLoggedIn ? '/home/view' : '/login/view';
+      final String nextRoute = isLoggedIn ? '/home' : '/login';
       Navigator.pushReplacementNamed(context, nextRoute);
     }
   }

@@ -21,7 +21,7 @@ class SignupView extends StatelessWidget {
           ScaffoldMessenger.of(
             context,
           ).showSnackBar(SnackBar(content: Text(state.message!)));
-          Navigator.pushNamed(context, '/otp/view');
+          Navigator.pushNamed(context, '/otp');
         } else if (state.status == FormStatus.failure) {
           ScaffoldMessenger.of(
             context,

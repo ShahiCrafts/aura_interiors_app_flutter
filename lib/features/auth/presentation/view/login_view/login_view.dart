@@ -210,7 +210,7 @@ class _LoginViewState extends State<LoginView> {
                   const SizedBox(width: 6),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/signup/view');
+                      Navigator.pushNamed(context, '/signup');
                     },
                     child: Text(
                       'Sign Up',

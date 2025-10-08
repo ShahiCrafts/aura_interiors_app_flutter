@@ -1,4 +1,5 @@
 import 'package:aura_interiors/core/network/auth_service.dart';
+import 'package:aura_interiors/features/auth/domain/entities/token_entity.dart';
 import 'package:aura_interiors/features/auth/domain/usecases/auth_resend_code_usecase.dart';
 import 'package:aura_interiors/features/auth/domain/usecases/auth_verify_usecase.dart';
 import 'package:aura_interiors/features/auth/presentation/bloc/otp_code_event.dart';
@@ -51,9 +52,14 @@ class OtpCodeBloc extends Bloc<OtpCodeEvent, OtpCodeState> {
         ),
       ),
       (response) async {
-        final token = response.user!.token;
-        if (token != null) {
-          await _authService.saveTokens(token);
+        final tokens = response.tokens;
+        if (tokens != null) {
+          await _authService.saveTokens(
+            TokenEntity(
+              accessToken: tokens.accessToken,
+              refreshToken: tokens.refreshToken,
+            ),
+          );
         }
         emit(
           state.copyWith(
